@@ -50,15 +50,26 @@ function ChatWorkspace() {
   const [darkMode, setDarkMode] = useState(
     () => localStorage.getItem("fardin_ai_theme") !== "light"
   );
+
   const [settings, setSettings] = useState(() => {
     try {
       const saved = localStorage.getItem("fardin_ai_settings");
-      return saved
-        ? JSON.parse(saved)
-        : { model: "", systemPrompt: "", temperature: 0.7 };
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          model: parsed.model || "gemini-3.5-flash-lite",
+          systemPrompt: parsed.systemPrompt || "",
+          temperature: parsed.temperature ?? 0.7,
+        };
+      }
     } catch {
-      return { model: "", systemPrompt: "", temperature: 0.7 };
+      // Fallback to default settings
     }
+    return {
+      model: "gemini-3.5-flash-lite",
+      systemPrompt: "",
+      temperature: 0.7,
+    };
   });
 
   const abortControllerRef = useRef(null);
