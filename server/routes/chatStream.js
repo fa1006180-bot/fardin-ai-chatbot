@@ -182,7 +182,7 @@ router.post("/stream", authenticateToken, async (req, res) => {
     "You are Fardin AI, a helpful, accurate, and intelligent AI assistant. Format responses cleanly using Markdown when appropriate.";
 
   const activeModel =
-    model?.trim() || process.env.AI_DEFAULT_MODEL || "gemini-3.8-flash";
+    model?.trim() || process.env.AI_DEFAULT_MODEL || "gemini-3.5-flash-lite";
   const abortController = new AbortController();
 
   let clientDisconnected = false;
